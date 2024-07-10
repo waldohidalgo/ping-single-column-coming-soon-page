@@ -1,0 +1,186 @@
+<script>
+import Footer from "./components/Footer.vue";
+export default {
+  name: "App",
+  data() {
+    return {
+      email: { value: "", isValid: false, messageError: "" },
+      isSubmitForm: false,
+    };
+  },
+  methods: {
+    submitForm() {
+      this.isSubmitForm = true;
+      const isEmailEmpty = checkEmailEmpty(this.email.value);
+
+      if (isEmailEmpty) {
+        this.email.isValid = false;
+        this.email.messageError =
+          "Whoops! It looks like you forgot to add your email";
+        return;
+      }
+      const isValidMail = checkValidEmail(this.email.value);
+      if (isValidMail) {
+        this.email.isValid = true;
+        this.email.messageError = "";
+        alert("Thank you for subscribing! 😄");
+      } else {
+        this.email.isValid = false;
+        this.email.messageError = "Please provide a valid email address";
+      }
+    },
+    inputForm(value) {
+      const isEmailEmpty = checkEmailEmpty(value);
+      if (isEmailEmpty) {
+        this.email.isValid = false;
+        this.email.messageError =
+          "Whoops! It looks like you forgot to add your email";
+        return;
+      }
+      const isValidMail = checkValidEmail(value);
+      if (isValidMail) {
+        this.email.isValid = true;
+        this.email.messageError = "";
+      } else {
+        this.email.isValid = false;
+        this.email.messageError = "Please provide a valid email address";
+      }
+    },
+  },
+  components: { Footer },
+};
+
+function checkValidEmail(email) {
+  return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+    email
+  );
+}
+
+function checkEmailEmpty(value) {
+  return /^\s*$/.test(value);
+}
+</script>
+
+<template>
+  <main class="py-[83px] font-libreFranklin md:py-[86px]">
+    <div>
+      <div class="mx-auto w-fit">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 86 26"
+          class="w-[50px] aspect-[86/26] md:w-[88px]"
+        >
+          <g fill="none">
+            <path
+              fill="#15202A"
+              d="M5.008 25c.555 0 .832-.245.832-.736v-8c0-.235.117-.352.352-.352h4.8c2.603 0 4.699-.635 6.288-1.904 1.59-1.27 2.384-3.056 2.384-5.36 0-1.621-.41-2.987-1.232-4.096-.821-1.11-1.93-1.936-3.328-2.48-1.397-.544-2.981-.816-4.752-.816h-9.6c-.341 0-.512.203-.512.608V24.36c0 .213.048.373.144.48.096.107.272.16.528.16h4.096zm5.216-13.088H6.288c-.17 0-.288-.048-.352-.144-.064-.096-.096-.25-.096-.464V5.832c0-.213.048-.363.144-.448.096-.085.25-.128.464-.128H10c1.195 0 2.144.277 2.848.832.704.555 1.056 1.376 1.056 2.464 0 1.045-.33 1.867-.992 2.464-.661.597-1.557.896-2.688.896zM27.856 25c.32 0 .544-.059.672-.176.128-.117.192-.315.192-.592v-22.4c0-.384-.17-.576-.512-.576h-4.576c-.341 0-.512.203-.512.608v22.464c0 .235.053.405.16.512.107.107.288.16.544.16h4.032zm9.312 0c.235 0 .4-.037.496-.112.096-.075.144-.197.144-.368V10.344c0-.107.037-.17.112-.192.075-.021.155.021.24.128l10.208 14.336c.128.17.245.277.352.32.107.043.256.064.448.064H52.4a.66.66 0 00.432-.144.455.455 0 00.176-.368V1.736c0-.32-.139-.48-.416-.48H49.04c-.384 0-.576.192-.576.576v13.216c0 .235-.053.352-.16.352-.085 0-.192-.085-.32-.256L38.576 1.736c-.15-.213-.277-.347-.384-.4-.107-.053-.288-.08-.544-.08h-3.872c-.384 0-.576.203-.576.608v22.592c0 .363.213.544.64.544h3.328zm30.176.32c1.664 0 3.013-.288 4.048-.864a9.158 9.158 0 002.672-2.24c.15-.17.256-.181.32-.032l.928 2.304c.192.341.47.512.832.512h1.024c.15 0 .267-.043.352-.128a.476.476 0 00.128-.352V13.736a.703.703 0 00-.24-.56c-.16-.139-.39-.208-.688-.208l-8.544-.032c-.341 0-.512.15-.512.448v2.4c0 .192.043.33.128.416.085.085.213.128.384.128h3.872c.235 0 .352.096.352.288 0 .085-.01.15-.032.192l-.064.928c-.235 1.045-.736 1.915-1.504 2.608-.768.693-1.792 1.04-3.072 1.04-1.685 0-2.976-.65-3.872-1.952-.896-1.301-1.344-3.435-1.344-6.4 0-2.837.427-4.907 1.28-6.208.853-1.301 2.101-1.952 3.744-1.952 1.259 0 2.283.363 3.072 1.088.79.725 1.29 1.643 1.504 2.752.043.192.096.325.16.4.064.075.181.112.352.112l4.224-.64c.277-.021.416-.15.416-.384 0-.192-.021-.352-.064-.48-.213-1.173-.752-2.277-1.616-3.312-.864-1.035-1.984-1.872-3.36-2.512-1.376-.64-2.896-.96-4.56-.96-2.176 0-4.096.501-5.76 1.504-1.664 1.003-2.955 2.432-3.872 4.288-.917 1.856-1.376 4.021-1.376 6.496 0 2.41.437 4.528 1.312 6.352.875 1.824 2.117 3.237 3.728 4.24 1.61 1.003 3.493 1.504 5.648 1.504z"
+            />
+            <path
+              fill="#4C7BF3"
+              d="M85.072 25c.32 0 .55-.059.688-.176.139-.117.208-.315.208-.592v-4c0-.363-.16-.544-.48-.544h-4.384a.498.498 0 00-.368.144c-.096.096-.144.24-.144.432v4.064c0 .448.235.672.704.672h3.776z"
+            />
+          </g>
+        </svg>
+      </div>
+      <h2 class="text-center mt-[34px] text-[21px] md:text-[48px] md:mt-[40px]">
+        <span class="text-grey">We are launching </span>
+        <span class="text-veryDarkBlue font-bold">soon!</span>
+      </h2>
+      <p
+        class="text-center mt-[13px] text-[11px] tracking-[0.15px] md:mt-[8px] md:text-[19px]"
+      >
+        Subscribe and get notified
+      </p>
+      <form
+        class="mx-auto w-[75%] flex flex-col mt-[30px] gap-[9px] md:flex-row md:w-[44%] md:justify-between md:mt-[37px] md:items-start"
+        @submit.prevent="submitForm"
+      >
+        <div class="w-full md:w-[66%]">
+          <input
+            class="w-full border-blue border rounded-[14px/50%] py-[8px] px-[30px] text-[12px] outline-none md:rounded-[25px/50%] md:py-[14px] md:text-[17px]"
+            :class="{ 'border-lightRed': !email.isValid && isSubmitForm }"
+            type="text"
+            name="email"
+            id="email"
+            v-model="email.value"
+            placeholder="Your email address..."
+            @input="inputForm($event.target.value)"
+          />
+          <div
+            v-show="!email.isValid && isSubmitForm"
+            class="italic text-lightRed text-center text-[9.7px] mt-[6px] mb-[10px] md:text-start md:px-[30px] md:text-[12px]"
+          >
+            {{ email.messageError }}
+          </div>
+        </div>
+        <button
+          class="w-full bg-blue rounded-[14px/50%] py-[10px] text-center text-white text-[12px] md:w-[31%] md:rounded-[25px/50%] md:py-[14px] md:text-[17px] hover:bg-blue/80"
+          type="submit"
+        >
+          Notify Me
+        </button>
+      </form>
+      <div
+        class="mx-auto w-[85%] mt-[66px] md:w-[45%] md:mt-[83px] max-w-[1280px] aspect-[1280/782]"
+      >
+        <img
+          class="w-full"
+          src="./assets/illustration-dashboard.png"
+          alt="dashboard image"
+        />
+      </div>
+      <div
+        class="flex justify-center mt-[114px] gap-[12px] md:gap-[11px] md:mt-[77px]"
+      >
+        <span
+          class="[&>svg]:aspect-square [&>svg]:w-[13px] w-[30px] aspect-square rounded-full border border-paleBlue border-solid flex justify-center items-center [&>svg]:fill-blue hover:bg-blue group cursor-pointer md:[&>svg]:w-[16px]"
+          title="Facebook"
+        >
+          <svg
+            class="group-hover:fill-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 320 512"
+          >
+            <path
+              d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"
+            />
+          </svg>
+        </span>
+        <span
+          class="[&>svg]:aspect-square [&>svg]:w-[13px] w-[30px] aspect-square rounded-full border border-paleBlue border-solid flex justify-center items-center [&>svg]:fill-blue hover:bg-blue group cursor-pointer md:[&>svg]:w-[16px]"
+          title="Twitter"
+        >
+          <svg
+            class="group-hover:fill-white"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M459.4 151.7c.3 4.5 .3 9.1 .3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53 51.7 63.7 129.3 105.3 216.4 109.8-1.6-7.8-2.6-15.9-2.6-24 0-57.8 46.8-104.9 104.9-104.9 30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3z"
+            />
+          </svg>
+        </span>
+        <span
+          class="[&>svg]:aspect-square [&>svg]:w-[13px] w-[30px] aspect-square rounded-full border border-paleBlue border-solid flex justify-center items-center [&>svg]:fill-blue hover:bg-blue group cursor-pointer md:[&>svg]:w-[16px]"
+          title="Instagram"
+        >
+          <svg
+            class="group-hover:fill-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 448 512"
+          >
+            <path
+              d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+            />
+          </svg>
+        </span>
+      </div>
+      <p class="text-center mt-[26px] text-[9.5px] md:text-[11px]">
+        &copy; Copyright Ping. All rights reserved.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</template>
